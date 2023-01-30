@@ -1,0 +1,7 @@
+# due to large size of videos and images
+*.mp4
+*.jpeg
+
+# notebooks cache
+.ipynb_checkpoints/
+__pycache__/
