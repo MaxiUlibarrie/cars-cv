@@ -1,0 +1,7 @@
+{
+    "model": {
+        "batch-size": "8",
+        "epochs": "5",
+        "workers": "4"
+    }
+}

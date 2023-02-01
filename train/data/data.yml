@@ -1,5 +1,5 @@
-train: ../train/images
-val: ../valid/images
+train: data/street_data/data/train/images
+val: data/street_data/data/valid/images
 
 # Classes
 names:
@@ -8,3 +8,4 @@ names:
   2: car
   3: motorcycle
   5: bus
+ 
