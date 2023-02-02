@@ -30,7 +30,4 @@ RUN mkdir -p $PATH_TRAINING_DATA
 COPY train/train_od.sh $PATH_TRAIN_OD
 COPY train/train_od.py /usr/src/train_od.py
 
-# BRING TRAINING DATA
-#CMD cp -a train/data/. $PATH_TRAINING_DATA
-
 ENTRYPOINT ["python","/usr/src/train_od.py"]
