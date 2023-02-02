@@ -1,5 +1,5 @@
-train: data/street_data/data/train/images
-val: data/street_data/data/valid/images
+train: data/street_data/train/images
+val: data/street_data/valid/images
 
 # Classes
 names:

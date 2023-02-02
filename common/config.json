@@ -2,6 +2,7 @@
     "model": {
         "batch-size": "8",
         "epochs": "5",
-        "workers": "4"
+        "workers": "4",
+        "yolo_weights": "yolov5s"
     }
 }

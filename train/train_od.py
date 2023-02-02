@@ -29,7 +29,7 @@ def get_opts(config):
         type=str,
         required=False,
         default=config.batch_size,
-        help="BATCH_SIZE for training"
+        help="batch size for training"
     )
 
     parser.add_argument(
@@ -37,7 +37,22 @@ def get_opts(config):
         type=str,
         required=False,
         default=config.workers,
-        help="BATCH_SIZE for training"
+        help="number of workers"
+    )
+
+    parser.add_argument(
+        "--yolo-weights",
+        type=str,
+        required=False,
+        default=config.yolo_weights,
+        choices=[
+            "yolov5n",
+            "yolov5s",
+            "yolov5m", 
+            "yolov5l",
+            "yolov5x"
+        ],
+        help="YOLOv5 weights"
     )
 
     args, _ = parser.parse_known_args()
@@ -51,7 +66,14 @@ def train_od(config):
     opt = get_opts(config)
     version_model = opt.version_model.zfill(2)
     path_train_od = os.environ.get("PATH_TRAIN_OD")
-    sp.run(["/bin/bash", "-m", path_train_od, "-v", version_model,"-e", opt.epochs, "-b", opt.batch_size, "-w", opt.workers])
+    sp.run([
+        "/bin/bash", "-m", path_train_od, 
+        "-v", version_model,
+        "-e", opt.epochs, 
+        "-b", opt.batch_size, 
+        "-w", opt.workers, 
+        "-y", opt.yolo_weights
+    ])
 
 if __name__ == "__main__":
     config = Config()

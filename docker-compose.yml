@@ -5,7 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile.train
     volumes:
-      - ./models:/usr/src/models
+      - ./train/data:/usr/src/data
+      - ./new_trained_models:/usr/src/new_trained_models
   backend:
     build:
       context: .
