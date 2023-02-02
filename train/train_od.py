@@ -55,24 +55,33 @@ def get_opts(config):
         help="YOLOv5 weights"
     )
 
+    parser.add_argument(
+        "--image-size",
+        type=str,
+        required=False,
+        default=config.image_size,
+        help="image size for training"
+    )
+
     args, _ = parser.parse_known_args()
     
     print("### ARGUMENTS ###")
-    print(args)
+    print(vars(args))
 
     return args
 
 def train_od(config):
     opt = get_opts(config)
     version_model = opt.version_model.zfill(2)
-    path_train_od = os.environ.get("PATH_TRAIN_OD")
+    path_train_od_sh = os.environ.get("PATH_TRAIN_OD_SH")
     sp.run([
-        "/bin/bash", "-m", path_train_od, 
+        "/bin/bash", "-m", path_train_od_sh, 
         "-v", version_model,
         "-e", opt.epochs, 
         "-b", opt.batch_size, 
         "-w", opt.workers, 
-        "-y", opt.yolo_weights
+        "-y", opt.yolo_weights,
+        "-i", opt.image_size
     ])
 
 if __name__ == "__main__":

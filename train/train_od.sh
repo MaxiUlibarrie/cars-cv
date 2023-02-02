@@ -1,5 +1,5 @@
 # Getting arguments
-while getopts e:b:v:w:y: flag
+while getopts e:b:v:w:y:i: flag
 do
     case "${flag}" in
         v) version_model=${OPTARG};;
@@ -7,6 +7,7 @@ do
         b) batch_size=${OPTARG};;
         w) workers=${OPTARG};;
         y) yolo_weights=${OPTARG};;
+        i) image_size=${OPTARG};;
     esac
 done
 
@@ -25,7 +26,14 @@ echo "### Copying training data to yolov5 ###"
 cp -a $PATH_TRAINING_DATA/. $YOLOV5_PATH/data/street_data
 
 echo "### Training OD model ###"
-python $YOLOV5_PATH/train.py --weights $weights --data $YOLOV5_PATH/data/street_data/data.yml --name cars-od --workers $workers --epochs $epochs --batch-size $batch_size
+python $YOLOV5_PATH/train.py --weights $weights \
+    --data $YOLOV5_PATH/data/street_data/data.yml \
+    --name cars-od \
+    --workers $workers \
+    --epochs $epochs \
+    --batch-size $batch_size \
+    --img $image_size \
+    --cache
 
 echo "### Creating folder for new version ###"
 mkdir -p $PATH_MODELS/V$version_model

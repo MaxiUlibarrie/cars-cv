@@ -10,7 +10,7 @@ RUN apt-get install -y python3-opencv
 
 RUN mkdir -p /usr/src/new_trained_models
 
-ENV PATH_TRAIN_OD=/usr/src/train_od.sh 
+ENV PATH_TRAIN_OD_SH=/usr/src/train_od.sh 
 ENV PATH_TRAINING_DATA=/usr/src/data
 ENV PATH_MODELS=/usr/src/new_trained_models
 ENV CONFIG_PATH_FILE=/usr/src/config.json

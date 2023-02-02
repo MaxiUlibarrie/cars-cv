@@ -16,6 +16,7 @@ class Config():
         self.epochs = str(config["model"]["epochs"])
         self.workers = str(config["model"]["workers"])
         self.yolo_weights = str(config["model"]["yolo_weights"])
+        self.image_size = str(config["model"]["image_size"])
 
         print("### Config loaded ###")
         

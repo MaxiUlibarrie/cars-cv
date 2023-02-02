@@ -7,4 +7,4 @@
 __pycache__/
 
 # yolov5
-train/yolov5/
+test-yolo/
