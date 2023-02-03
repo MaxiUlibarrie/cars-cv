@@ -4,6 +4,7 @@
         "epochs": "5",
         "workers": "4",
         "yolo_weights": "yolov5s",
-        "image_size": "640"
+        "image_size": "640",
+        "classes": { "0": "person", "1": "bicycle", "2": "car", "3": "motorcycle", "5": "bus" }
     }
 }

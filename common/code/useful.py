@@ -18,5 +18,7 @@ class Config():
         self.yolo_weights = str(config["model"]["yolo_weights"])
         self.image_size = str(config["model"]["image_size"])
 
+        self.classes = dict(config["model"]["classes"])
+
         print("### Config loaded ###")
         

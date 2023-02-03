@@ -3,7 +3,7 @@ from glob import glob
 import pandas as pd
 import os
 
-def show_basic_info(video):
+def get_basic_info(video):
     """
     Function to show basic information of the video.
 
@@ -14,13 +14,16 @@ def show_basic_info(video):
     frames = data.get(cv2.CAP_PROP_FRAME_COUNT)
     fps = data.get(cv2.CAP_PROP_FPS)
 
-    print(f"WIDTH: {data.get(cv2.CAP_PROP_FRAME_WIDTH)}")
-    print(f"HEIGHT: {data.get(cv2.CAP_PROP_FRAME_HEIGHT )}")
-    print(f"FRAMES: {frames}")
-    print(f"FPS: {(fps):0.2f}")
-    print(f"TOTAL SECONDS: {(frames / fps):0.2f}") 
+    info = {}
+    info["width"] = int(data.get(cv2.CAP_PROP_FRAME_WIDTH))
+    info["height"] = int(data.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    info["frames"] = int(frames)
+    info["fps"] = fps
+    info["total_seconds"] = frames / fps
 
     data.release()
+
+    return info
 
 def generate_imgs(video, output, limit_frames=-1, every_n_frames=0):
     """

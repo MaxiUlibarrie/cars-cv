@@ -8,3 +8,9 @@ __pycache__/
 
 # yolov5
 test-yolo/
+
+# avoid yolov5 weights
+yolov5*.pt
+
+# models results due to they are to heavy
+models_results/V*/
