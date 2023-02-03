@@ -4,7 +4,6 @@ class Yolo():
 
     def __init__(self, weights, custom=True):
         self.model = torch.hub.load('ultralytics/yolov5', 'custom', weights) 
-        #self.model = torch.hub.load('ultralytics/yolov5', 'yolov5s') 
 
     def predict_bboxes(self, img):
         results = self.model(img)
