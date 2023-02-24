@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import torch
 from abc import ABC, abstractmethod
-from common import Config
+from config import Config
 
 config = Config()
 

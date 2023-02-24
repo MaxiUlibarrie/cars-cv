@@ -1,12 +1,12 @@
 from datetime import datetime
 
-class Log():
+class Logger():
 
-    def log0(txt):
+    def log_1(txt):
         print(f"{datetime.now()} ##### {txt} #####")
 
-    def log1(txt):
+    def log_2(txt):
         print(f"{datetime.now()} # {txt} #")
 
-    def log3(txt):
+    def log_3(txt):
         print(f"-/{datetime.now()}{txt}/-")

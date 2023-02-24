@@ -3,7 +3,7 @@ import argparse
 import os
 
 # config
-from useful import Config
+from common import Config
 
 def get_opts(config):
     parser = argparse.ArgumentParser()

@@ -19,7 +19,7 @@ class Config():
         self.image_size = str(config["model"]["image_size"])
 
         classes = dict(config["model"]["classes"])
-        self.classes = { int(k) : str(v) for k,v in classes.items() }
+        self.classes = { str(k) : int(v) for k,v in classes.items() }
 
         print("### Config loaded ###")
         

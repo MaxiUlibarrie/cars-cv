@@ -7,9 +7,10 @@ services:
     volumes:
       - ./pipelines/train/data:/usr/src/data
       - ./models/new:/usr/src/new_trained_models
-  backend:
+  detection:
     build:
       context: .
       dockerfile: Dockerfile.detection
     volumes:
       - ./pipelines/detection/outputs:/usr/src/outputs
+      - ./pipelines/detection/video:/usr/src/video

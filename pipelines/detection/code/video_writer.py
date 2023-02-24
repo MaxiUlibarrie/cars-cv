@@ -5,13 +5,13 @@ from tqdm import tqdm
 class VideoWriter():
     
     color_map = {
-        "person": (0, 0, 255), # blue
-        "bicycle": (0, 255, 255), # cyan 
-        "car": (255, 128, 0), # orange 
-        "motorcycle": (128, 0, 255), # purple 
+        "person": (255, 0, 0), # blue
+        "bicycle": (255, 255, 0), # cyan 
+        "car": (0, 128, 255), # orange 
+        "motorcycle": (255, 0, 128), # purple 
         "bus": (255, 0, 255), # magenta
-        "collision_zone": (255, 255, 0), # yellow
-        "person_in_danger": (255, 0, 0) # red
+        "collision_zone": (0, 255, 255), # yellow
+        "person_in_danger": (0, 0, 255) # red
     }
     
     def __init__(self, pc_model):
