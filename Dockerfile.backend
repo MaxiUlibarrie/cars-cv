@@ -1,6 +1,0 @@
-FROM bitnami/pytorch:1.13.1-debian-11-r13
-
-USER root
-
-WORKDIR /usr/src
-
