@@ -1,12 +1,39 @@
-from datetime import datetime
+import logging 
+import sys
 
 class Logger():
 
-    def log_1(txt):
-        print(f"{datetime.now()} ##### {txt} #####")
+    __shared_instance = None
 
-    def log_2(txt):
-        print(f"{datetime.now()} # {txt} #")
+    def __new__(cls, path_log):
+        if cls.__shared_instance is None:
+            cls.__shared_instance = super().__new__(cls)
+            cls.logger = cls.setup_custom_logger("PCS", path_log)
+        
+        return cls.__shared_instance  
+        
+    @classmethod
+    def setup_custom_logger(cls, name, path_log):
+        formatter = logging.Formatter(fmt='%(asctime)s %(levelname)-8s %(message)s',
+                                    datefmt='%Y-%m-%d %H:%M:%S')
+        handler = logging.FileHandler(path_log, mode='w')
+        handler.setFormatter(formatter)
+        screen_handler = logging.StreamHandler(stream=sys.stdout)
+        screen_handler.setFormatter(formatter)
+        logger = logging.getLogger(name)
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(handler)
+        logger.addHandler(screen_handler)
+        return logger
 
-    def log_3(txt):
-        print(f"-/{datetime.now()}{txt}/-")
+    def log_L1(cls, txt):
+        cls.logger.info(f"##### {txt} #####")
+
+    def log_L2(cls, txt):
+        cls.logger.info(f"# {txt} #")
+
+    def log_L3(cls, txt):
+        cls.logger.info(f"-/{txt}/-")
+
+    def log_error(cls, txt):
+        cls.logger.error(f"##### {txt} #####")

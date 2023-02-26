@@ -9,8 +9,12 @@ RUN apt-get install -y python3-opencv
 
 ENV ROOT_PATH=/usr/src
 ENV PATH_OUTPUT=/usr/src/outputs
+ENV LOG_OUTPUT=/usr/src/outputs/log.txt
 ENV PATH_VIDEO=/usr/src/video
 ENV CONFIG_PATH_FILE=/usr/src/config.json
+ENV MODELS_PATH=/usr/src/models
+
+RUN mkdir -p $PATH_OUTPUT
 
 COPY pipelines/detection/requirements.txt $ROOT_PATH/requirements.txt
 RUN pip install -r $ROOT_PATH/requirements.txt

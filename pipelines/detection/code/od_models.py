@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import os
+from glob import glob
 import torch
 from abc import ABC, abstractmethod
 from config import Config
@@ -14,14 +16,16 @@ class OD(ABC):
 
 class Yolov5(OD):
     
-    classes = config.classes
+    classes = vars(config.get.general.classes)
     
     def __init__(self, weights):
         if weights in ["yolov5n", "yolov5s", "yolov5m", "yolov5l", "yolov5x"]:
             self.model = torch.hub.load('ultralytics/yolov5', weights)
         else:
             # custom 
-            self.model = torch.hub.load('ultralytics/yolov5', 'custom', weights)
+            models_path = os.environ.get("MODELS_PATH")
+            ctm_weights = glob(f"{models_path}/{weights}/best.pt")[0]
+            self.model = torch.hub.load('ultralytics/yolov5', 'custom', ctm_weights)
         
     def predict(self, img, conf_thres):
         results = self.model(img)

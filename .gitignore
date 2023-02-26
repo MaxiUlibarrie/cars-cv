@@ -13,4 +13,7 @@ test-yolo/
 yolov5*.pt
 
 # models results due to they are to heavy
-models_results/V*/
+trained_models/results/V*/
+
+# outputs detection pipeline
+pipelines/detection/outputs

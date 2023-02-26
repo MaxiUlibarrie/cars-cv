@@ -14,3 +14,4 @@ services:
     volumes:
       - ./pipelines/detection/outputs:/usr/src/outputs
       - ./pipelines/detection/video:/usr/src/video
+      - ./trained_models/deploys:/usr/src/models
