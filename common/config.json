@@ -1,0 +1,26 @@
+{
+    "general": {
+        "classes": { 
+            "person" : 0, 
+            "bicycle" : 1, 
+            "car" : 2, 
+            "motorcycle" : 3, 
+            "bus" : 5 
+        }
+    },
+
+    "train": {
+        "batch_size": "8",
+        "epochs": "5",
+        "workers": "4",
+        "yolo_weights": "yolov5s",
+        "image_size": "640"
+    },
+
+    "detection": {
+        "width": 640,
+        "height": 480,
+        "conf_thres": "0.3",
+        "iop_thres": "0.5"
+    }
+}

@@ -1,0 +1,18 @@
+argparse>=1.4.0
+numpy>=1.24.2
+pandas>=1.5.3
+tqdm>=4.64.1
+opencv-python>=4.7.0.72
+gitpython
+ipython  # interactive notebook
+matplotlib>=3.2.2
+Pillow>=7.1.2
+psutil  # system resources
+PyYAML>=5.3.1
+requests>=2.23.0
+scipy>=1.4.1
+thop>=0.1.1  # FLOPs computation
+torchvision>=0.8.1
+tensorboard>=2.4.1
+seaborn>=0.11.0
+setuptools>=65.5.1 # Snyk vulnerability fix

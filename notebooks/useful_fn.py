@@ -1,8 +1,9 @@
 import cv2
 from glob import glob
 import pandas as pd
+import os
 
-def show_basic_info(video):
+def get_basic_info(video):
     """
     Function to show basic information of the video.
 
@@ -13,13 +14,16 @@ def show_basic_info(video):
     frames = data.get(cv2.CAP_PROP_FRAME_COUNT)
     fps = data.get(cv2.CAP_PROP_FPS)
 
-    print(f"WIDTH: {data.get(cv2.CAP_PROP_FRAME_WIDTH)}")
-    print(f"HEIGHT: {data.get(cv2.CAP_PROP_FRAME_HEIGHT )}")
-    print(f"FRAMES: {frames}")
-    print(f"FPS: {(fps):0.2f}")
-    print(f"TOTAL SECONDS: {(frames / fps):0.2f}") 
+    info = {}
+    info["width"] = int(data.get(cv2.CAP_PROP_FRAME_WIDTH))
+    info["height"] = int(data.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    info["frames"] = int(frames)
+    info["fps"] = fps
+    info["total_seconds"] = frames / fps
 
     data.release()
+
+    return info
 
 def generate_imgs(video, output, limit_frames=-1, every_n_frames=0):
     """
@@ -79,3 +83,62 @@ def get_annotations(folder, width, height, categories_map, format_img="jpeg"):
             
     return ann_df
 
+def replace_class_in_yolo_file(folder, replace_map):
+    """
+    Function to replace missclasses in Yolo files using a map.
+    This function creates a folder output with the results in the same directory.
+
+    @folder: where the Yolo files are located.
+    @replace_map: dictionary used to replace, for example: { 0:2, 1:4 }
+    """
+    files_path = os.listdir(folder)
+    try:
+        os.mkdir(f"{folder}/output")
+    except:
+        pass
+
+    validation_data = []
+
+    for file_path in  files_path:
+        with open(f"{folder}/{file_path}") as f:
+            data = f.readlines()
+
+        data = [ d.strip() for d in data ]
+        new_data = []
+        for line in data:
+            new_line = line.split(" ")
+            new_line[0] = str(replace_map[int(new_line[0])])
+            new_line = " ".join(new_line)
+            new_data.append(new_line)
+
+        with open(f"{folder}/output/{file_path}", 'w') as f:
+            for d in new_data:
+                f.write(d)
+                if d != new_data[-1] : f.write("\n")
+
+        # check data
+        with open(f"{folder}/output/{file_path}") as f:
+            data_check = f.readlines()
+
+        val = (len(data_check) == len(data))
+        if val:
+            data = [ l.strip().split(" ") for l in data ]
+            data = [ " ".join(l) for l in data ]
+
+            data_check = [ l.strip().split(" ") for l in data_check ]
+            data_check = [ " ".join(l) for l in data_check ]
+
+            zip_data = list(zip(data, data_check))
+            # just must be diff for the first character (class)
+            val = all(e[0][1:] == e[1][1:] for e in zip_data)
+
+        print(f"Old data: {data}")
+        print(f"New data: {data_check}")
+
+        validation_data.append(val)
+    
+    if all(v for v in validation_data):
+        print("DATA FINISHED SUCCESSFULLY")
+    else:
+        print("DATA WAS CORRUPTED")
+    

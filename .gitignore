@@ -5,3 +5,15 @@
 # notebooks cache
 .ipynb_checkpoints/
 __pycache__/
+
+# yolov5
+test-yolo/
+
+# avoid yolov5 weights
+yolov5*.pt
+
+# models results due to they are to heavy
+trained_models/results/V*/
+
+# outputs detection pipeline
+pipelines/detection/outputs

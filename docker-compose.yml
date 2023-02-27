@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./pipelines/train/data:/usr/src/data
+      - ./trained_models/new:/usr/src/new_models
+  detection:
+    build:
+      context: .
+      dockerfile: Dockerfile.detection
+    volumes:
+      - ./pipelines/detection/outputs:/usr/src/outputs
+      - ./pipelines/detection/video:/usr/src/video
+      - ./trained_models/deploys:/usr/src/models

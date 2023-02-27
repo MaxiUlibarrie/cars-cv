@@ -1,0 +1,36 @@
+FROM bitnami/pytorch:1.13.1-debian-11-r13
+
+WORKDIR /usr/src
+
+USER root
+
+RUN apt-get update
+RUN apt-get install -y git
+RUN apt-get install -y python3-opencv
+
+ENV ROOT_PATH=/usr/src
+ENV TRAIN_OD_SH_FILE=$ROOT_PATH/train_od.sh 
+ENV TRAINING_DATA_PATH=$ROOT_PATH/data
+ENV NEW_MODELS_PATH=$ROOT_PATH/new_models
+ENV LOG_OUTPUT=$NEW_MODELS_PATH/log.txt
+ENV CONFIG_FILE=$ROOT_PATH/config.json
+ENV YOLOV5_PATH=$ROOT_PATH/yolov5
+
+RUN mkdir -p $NEW_MODELS_PATH
+
+# Install YOLOv5 and prepare training
+RUN mkdir -p $YOLOV5_PATH
+RUN git clone https://github.com/ultralytics/yolov5.git $YOLOV5_PATH/
+RUN pip install -r $YOLOV5_PATH/requirements.txt
+
+# Common
+COPY common/config.json $CONFIG_FILE
+COPY common/code/config.py $ROOT_PATH/config.py
+COPY common/code/logger.py $ROOT_PATH/logger.py
+
+# Training
+RUN mkdir -p $TRAINING_DATA_PATH
+COPY pipelines/train/code/train_od.sh $PATH_TRAIN_OD
+COPY pipelines/train/code/main.py $ROOT_PATH/main.py
+
+ENTRYPOINT ["python","main.py"]
