@@ -38,7 +38,7 @@ Example:
 # DETECTION
 Pipeline to test OD and PC models. It generates a video with the detections found in the original video put in `pipelines/detection/video`. The final video is going to be stored in `pipelines/detection/outputs` after executing the pipeline.
 
-## Build Train Image
+## Build Detection Image
 
 > `docker-compose build detection`
 
