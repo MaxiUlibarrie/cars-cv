@@ -1,16 +1,20 @@
 import logging 
 import sys
+import os
+
+ENV_VAR_LOG_OUTPUT = "LOG_OUTPUT"
 
 class Logger():
 
     __shared_instance = None
 
-    def __new__(cls, path_log):
+    def __new__(cls):
         if cls.__shared_instance is None:
-            cls.__shared_instance = super().__new__(cls)
+            path_log = os.environ.get(ENV_VAR_LOG_OUTPUT)
             cls.logger = cls.setup_custom_logger("PCS", path_log)
+            cls.__shared_instance = super().__new__(cls)
         
-        return cls.__shared_instance  
+        return cls.__shared_instance
         
     @classmethod
     def setup_custom_logger(cls, name, path_log):
@@ -26,14 +30,18 @@ class Logger():
         logger.addHandler(screen_handler)
         return logger
 
+    @classmethod
     def log_L1(cls, txt):
         cls.logger.info(f"##### {txt} #####")
 
+    @classmethod
     def log_L2(cls, txt):
         cls.logger.info(f"# {txt} #")
 
+    @classmethod
     def log_L3(cls, txt):
         cls.logger.info(f"-/{txt}/-")
 
+    @classmethod
     def log_error(cls, txt):
         cls.logger.error(f"##### {txt} #####")

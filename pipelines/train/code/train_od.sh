@@ -23,7 +23,7 @@ echo "### Creating folder for training ###"
 mkdir -p $YOLOV5_PATH/data/street_data
 
 echo "### Copying training data to yolov5 ###"
-cp -a $PATH_TRAINING_DATA/. $YOLOV5_PATH/data/street_data
+cp -a $TRAINING_DATA_PATH/. $YOLOV5_PATH/data/street_data
 
 echo "### Training OD model ###"
 python $YOLOV5_PATH/train.py --weights $weights \
@@ -36,7 +36,7 @@ python $YOLOV5_PATH/train.py --weights $weights \
     --cache
 
 echo "### Creating folder for new version ###"
-mkdir -p $PATH_MODELS/V$version_model
+mkdir -p $NEW_MODELS_PATH/V$version_model
 
 echo "### Saving OD model results ###"
-cp -a yolov5/runs/train/cars-od/. $PATH_MODELS/V$version_model
+cp -a yolov5/runs/train/cars-od/. $NEW_MODELS_PATH/V$version_model

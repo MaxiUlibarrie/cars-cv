@@ -1,15 +1,14 @@
 import argparse
 import os
-
-from config import Config
-from logger import Logger
-
 from od_models import Yolov5
 from pc_model import PreventCollision
 from video_writer import VideoWriter
 
-logger = Logger(os.environ.get('LOG_OUTPUT'))
+from config import Config
+from logger import Logger
+
 config = Config()
+logger = Logger()
 
 def get_opts(config):
     parser = argparse.ArgumentParser()
@@ -88,18 +87,17 @@ if __name__ == "__main__":
         format_video = opt.format_video
         video_codec = opt.video_codec
 
-        video_files = os.listdir(os.environ.get('PATH_VIDEO'))
-        video_path_file = f"{os.environ.get('PATH_VIDEO')}/{video_files[0]}"
+        video_files = os.listdir(os.environ.get('VIDEO_PATH'))
+        video_path_file = f"{os.environ.get('VIDEO_PATH')}/{video_files[0]}"
 
         output_name = f"{video_files[0].replace('.' + format_video,'')}_out.{format_video}"
-        output_path_file = f"{os.environ.get('PATH_OUTPUT')}/{output_name}"
+        output_path_file = f"{os.environ.get('OUTPUT_PATH')}/{output_name}"
 
         widht = int(opt.width)
         height = int(opt.height)
         conf_thres = float(opt.conf_thres)
         iop_thres = float(opt.iop_thres)
 
-        logger.log_L1("Started to generate video.")
         vw.generate_video(
             video_path = video_path_file, 
             video_output = output_path_file,
@@ -108,7 +106,6 @@ if __name__ == "__main__":
             conf_thres = conf_thres,
             iop_thres = iop_thres,
             video_codec = video_codec)
-        logger.log_L1("Finished generating video.")
     except Exception as e:
         logger.log_error(e)
     

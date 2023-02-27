@@ -18,14 +18,14 @@ class Yolov5(OD):
     
     classes = vars(config.get.general.classes)
     
-    def __init__(self, weights):
-        if weights in ["yolov5n", "yolov5s", "yolov5m", "yolov5l", "yolov5x"]:
-            self.model = torch.hub.load('ultralytics/yolov5', weights)
+    def __init__(self, version):
+        if version in ["yolov5n", "yolov5s", "yolov5m", "yolov5l", "yolov5x"]:
+            self.model = torch.hub.load('ultralytics/yolov5', version)
         else:
             # custom 
             models_path = os.environ.get("MODELS_PATH")
-            ctm_weights = glob(f"{models_path}/{weights}/best.pt")[0]
-            self.model = torch.hub.load('ultralytics/yolov5', 'custom', ctm_weights)
+            weights = glob(f"{models_path}/{version}/best.pt")[0]
+            self.model = torch.hub.load('ultralytics/yolov5', 'custom', weights)
         
     def predict(self, img, conf_thres):
         results = self.model(img)

@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
+from logger import Logger
+
+logger = Logger()
+
 class VideoWriter():
     
     color_map = {
@@ -59,6 +63,7 @@ class VideoWriter():
                        iop_thres = 0.5,
                        video_codec = "mp4v"):
         
+        logger.log_L1("Started to generate video.")
         cap = cv2.VideoCapture(video_path)
         n_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         fps = cap.get(cv2.CAP_PROP_FPS)
@@ -77,3 +82,4 @@ class VideoWriter():
 
         out.release()
         cap.release()
+        logger.log_L1("Finished generating video.")

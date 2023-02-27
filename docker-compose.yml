@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.train
     volumes:
       - ./pipelines/train/data:/usr/src/data
-      - ./models/new:/usr/src/new_trained_models
+      - ./trained_models/new:/usr/src/new_models
   detection:
     build:
       context: .

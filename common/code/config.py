@@ -3,7 +3,9 @@ import os
 from types import SimpleNamespace
 from logger import Logger
 
-logger = Logger(os.environ.get('LOG_OUTPUT'))
+logger = Logger()
+
+ENV_VAR_CONFIG_FILE = "CONFIG_FILE"
 
 class Config():
 
@@ -12,19 +14,20 @@ class Config():
     def __new__(cls):
         if cls.__shared_instance is None:
             cls.__shared_instance = super().__new__(cls)
-            cls.load_config()
+            cls.get = cls.load_config()
+            logger.log_L2("Config loaded")
         
         return cls.__shared_instance  
 
     @classmethod
     def load_config(cls):
 
-        CONFIG_PATH_FILE = os.environ.get("CONFIG_PATH_FILE")
+        CONFIG_FILE = os.environ.get(ENV_VAR_CONFIG_FILE)
 
-        with open(CONFIG_PATH_FILE) as config_file:
+        with open(CONFIG_FILE) as config_file:
             config_json = config_file.read()
 
-        cls.get = json.loads(config_json, object_hook=lambda d: SimpleNamespace(**d))
+        getter = json.loads(config_json, object_hook = lambda d : SimpleNamespace(**d))
 
-        logger.log_L2("Config loaded")
+        return getter
         

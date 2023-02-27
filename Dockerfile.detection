@@ -8,19 +8,19 @@ RUN apt-get update
 RUN apt-get install -y python3-opencv
 
 ENV ROOT_PATH=/usr/src
-ENV PATH_OUTPUT=/usr/src/outputs
-ENV LOG_OUTPUT=/usr/src/outputs/log.txt
-ENV PATH_VIDEO=/usr/src/video
-ENV CONFIG_PATH_FILE=/usr/src/config.json
-ENV MODELS_PATH=/usr/src/models
+ENV OUTPUT_PATH=$ROOT_PATH/outputs
+ENV VIDEO_PATH=$ROOT_PATH/video
+ENV MODELS_PATH=$ROOT_PATH/models
+ENV LOG_OUTPUT=$ROOT_PATH/outputs/log.txt
+ENV CONFIG_FILE=$ROOT_PATH/config.json
 
-RUN mkdir -p $PATH_OUTPUT
+RUN mkdir -p $OUTPUT_PATH
 
 COPY pipelines/detection/requirements.txt $ROOT_PATH/requirements.txt
 RUN pip install -r $ROOT_PATH/requirements.txt
 
 # common
-COPY common/config.json $CONFIG_PATH_FILE
+COPY common/config.json $CONFIG_FILE
 COPY common/code/config.py $ROOT_PATH/config.py
 COPY common/code/logger.py $ROOT_PATH/logger.py
 
@@ -28,6 +28,7 @@ COPY common/code/logger.py $ROOT_PATH/logger.py
 COPY pipelines/detection/code/od_models.py $ROOT_PATH/od_models.py
 COPY pipelines/detection/code/pc_model.py $ROOT_PATH/pc_model.py
 COPY pipelines/detection/code/video_writer.py $ROOT_PATH/video_writer.py
+COPY pipelines/detection/code/images_utils.py $ROOT_PATH/images_utils.py
 COPY pipelines/detection/code/main.py $ROOT_PATH/main.py
 
 ENTRYPOINT ["python","main.py"]
