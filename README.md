@@ -42,7 +42,7 @@ Pipeline to test OD and PC models. It generates a video with the detections foun
 
 > `docker-compose build detection`
 
-## Run training model
+## Run detection pipeline
 
 ### Parameters:
 
