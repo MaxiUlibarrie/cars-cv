@@ -1,7 +1,7 @@
 # Prevent Collision System
 This is a project to prevent vehicles collisions to people that cross in the middle of the street.
 
-<img src="https://github.com/MaxiUlibarrie/cars-cv/tree/master/resources/person_in_danger.gif" class="center"/>
+![Alt text](/resources/person_in_danger.gif)
 
 ### Require:
 * Docker
@@ -66,4 +66,4 @@ Also in the configuration file it is posible to change these default values (`co
 # Intersection Over Person (IOP)
 Calculate the percentage of the person (blue box) over the collision zone (yellow polygon). When the IOP is over the IOP threshold the bounding box of the person turns red. This means that the person is in danger because is inside the collision zone in front fo the vehicle. 
 
-<img src="https://github.com/MaxiUlibarrie/cars-cv/tree/master/resources/iop.png" width="640" height="480" class="center"/>
+![Alt text](/resources/iop.png)
