@@ -90,9 +90,6 @@ if __name__ == "__main__":
         video_files = os.listdir(os.environ.get('VIDEO_PATH'))
         video_path_file = f"{os.environ.get('VIDEO_PATH')}/{video_files[0]}"
 
-        output_name = f"{video_files[0].replace('.' + format_video,'')}_out.{format_video}"
-        output_path_file = f"{os.environ.get('OUTPUT_PATH')}/{output_name}"
-
         widht = int(opt.width)
         height = int(opt.height)
         conf_thres = float(opt.conf_thres)
@@ -100,11 +97,11 @@ if __name__ == "__main__":
 
         vw.generate_video(
             video_path = video_path_file, 
-            video_output = output_path_file,
             width = widht, 
             height = height,
             conf_thres = conf_thres,
             iop_thres = iop_thres,
+            format_video = format_video,
             video_codec = video_codec)
     except Exception as e:
         logger.log_error(e)
