@@ -5,7 +5,12 @@ import os
 ENV_VAR_LOG_OUTPUT = "LOG_OUTPUT"
 
 class Logger():
+    """
+    Log everything in the system and write everything \
+    into a log.txt file.
 
+    This is a Singleton class.
+    """
     __shared_instance = None
 
     def __new__(cls):

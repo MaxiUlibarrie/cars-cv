@@ -8,7 +8,13 @@ logger = Logger()
 ENV_VAR_CONFIG_FILE = "CONFIG_FILE"
 
 class Config():
+    """
+    Retrieves the info from config.json file and it \
+    converts it into a class for easy access for all components \
+    in the system.
 
+    This is a Singleton class.
+    """
     __shared_instance = None
 
     def __new__(cls):
