@@ -8,6 +8,13 @@ class PreventCollision():
         self.od_model = od_model
         
     def detect(self, img, conf_thres, iop_thres):
+        """
+        Detects objects and collisions in the image.
+
+        @img: image
+        @conf_thres: Confidence threshold for the OD model.
+        @iop_thres: Intersection over person threshold.
+        """
         height = img.shape[0]
         width = img.shape[1]
         pred_df = self.od_model.predict(img, conf_thres)
@@ -40,6 +47,15 @@ class PreventCollision():
     def get_collision_zone(xmin, ymin, xmax, ymax, 
                            width, height,
                            width_col_zone = 0.8, flap = 10):
+        """
+        Gets collision zone from coordinates of the vehicle.
+
+        @xmin, ymin, xmax, ymax: coordinates
+        @width, height: size of the image
+        @width_col_zone: percentage of the vehicle to apply \
+            into the width of the collision zone
+        @flap: flaps of bbox of the collision zone
+        """
         length = (xmax - xmin) * width_col_zone
         pt1 = [xmin, ymin]
         pt2 = [xmin, ymin + (ymax-ymin)]
